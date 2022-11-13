@@ -11,14 +11,11 @@ const Home: Component = () => {
   const location = useLocation();
   return (
     <>
-      <div onClick={() => setShowModal(!showModal())}>
+      <div>
         <RequestModal
           show={showModal()}
           onModalHide={(id: string | null) => {
             setShowModal(!showModal());
-            if (id) {
-              navigate(`/${id}`);
-            }
           }}
         />
       </div>
