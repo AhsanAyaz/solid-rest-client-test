@@ -33,6 +33,7 @@ export const TextField: Component<{
         oninput={onInput}
         onblur={onBlur}
         placeholder={props.placeholder}
+        required={props.control.isRequired}
         id={props.id}
         class={`w-full p-3 text-sm border-gray-200 rounded-lg ${props.class}`}
       /> : <input
@@ -41,9 +42,11 @@ export const TextField: Component<{
         oninput={onInput}
         onblur={onBlur}
         placeholder={props.placeholder}
+        required={props.control.isRequired}
         id={props.id}
         class={`w-full p-3 text-sm border-gray-200 rounded-lg ${props.class}`}
       />}
     </>
   );
 };
+

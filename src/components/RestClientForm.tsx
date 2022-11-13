@@ -4,7 +4,12 @@ import { TextField } from "./TextField";
 
 const controlFactory = () => {
   return createFormGroup({
-    name: createFormControl<string>("New Request"),
+    name: createFormControl<string>("New Request", {
+      required: true,
+      validators: (val: string) => {
+        return !val.length ? {isMissing: true} : null;
+      }
+    }),
     request: createFormGroup({
       method: createFormControl<string>("GET"),
       body: createFormControl<string>(""),
@@ -12,6 +17,7 @@ const controlFactory = () => {
     }),
   });
 };
+
 
 export const RestClientForm = withControl<
   {
@@ -27,7 +33,6 @@ export const RestClientForm = withControl<
     const controlGroup = () => props.control.controls;
     const requestControlGroup = () => controlGroup().request.controls;
     const request = () => props.request;
-
     return (
       <form
         action=""
