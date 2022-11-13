@@ -3,7 +3,8 @@ import { Component, createSignal, For } from "solid-js";
 import IconButton from "../components/IconButton";
 import RequestModal from "../components/RequestModal";
 import { IRestRequest } from "../interfaces/rest.interfaces";
-import { restRequests } from "../store";
+import { restRequests, setRestRequests } from "../store";
+import './Home.css';
 
 const Home: Component = () => {
   const [showModal, setShowModal] = createSignal(false);
@@ -46,6 +47,23 @@ const Home: Component = () => {
                       {item.request.method} {item.request.url}
                     </div>
                   </div>
+                  <ion-icon
+                    onclick={(e: MouseEvent) => {
+                      e.preventDefault();
+                      e.stopImmediatePropagation();
+                      if (restRequests()?.length) {
+                        const requests = restRequests() || [];
+                        setRestRequests(
+                          requests.filter((i) => i.id !== item.id)
+                        );
+                        if (location.pathname === `/${item.id}`) {
+                          navigate("/");
+                        }
+                      }
+                    }}
+                    class="absolute text-xl hover:scale-125 transition-all ease-in-out duration-100 hover:text-red-700 text-red-600 right-2 top-0 bottom-0 m-auto"
+                    name="trash"
+                  ></ion-icon>
                 </Link>
               )}
             </For>
